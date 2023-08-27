@@ -1,0 +1,84 @@
+<html>
+    <head>
+    </head>
+    <body style="width:90%;height:90%;overflow: hidden;">
+    </body>
+    <script>
+        var fishnum=10;
+        var imgs=[]
+        var direction=[]
+        var t;
+        var body=document.getElementsByTagName('body');
+        function sleep(delay) {
+                var start = (new Date()).getTime();
+                while ((new Date()).getTime() - start < delay) {
+                    continue;
+                }
+        }
+        function check(top,left){
+            var width=body[0].clientWidth-50;
+            var height=body[0].clientHeight-50;
+            if(top<0||left<0||left>width||top>height) return false;
+            return true;
+        }
+        function sin(x){
+            return Math.sin(x/180*Math.PI);
+        }
+        function cos(x){
+            return Math.cos(x/180*Math.PI);
+        }
+        let bgImg = new Image()
+        bgImg.src = 'https://pic.imgdb.cn/item/64e9b763661c6c8e54417dff.png'
+        window.addEventListener('resize', function() {
+            if(t!=null){
+                clearInterval(t);
+                document.body.innerHTML="";
+                imgs=[]
+                direction=[]
+                startwork();
+            }
+        });
+        function startwork(){
+            var width=body[0].clientWidth-50;
+            var height=body[0].clientHeight-50;
+            for(var i=0;i<fishnum;i++){
+                var img=document.createElement('img');
+                img.src='https://pic.imgdb.cn/item/64e9b763661c6c8e54417dff.png';
+                img.id='fish'+i;
+                img.style.width='50px';
+                img.style.height='50px';
+                var random1=Math.random()*width;
+                var random2=Math.random()*height;
+                img.style.top=random2;
+                img.style.left=random1;
+                img.style.position='absolute';
+                body[0].appendChild(img);
+                imgs.push(img);
+                direction.push(Math.random()*360);
+            }
+            t=setInterval(function(){
+                var width=body[0].clientWidth-50;
+                var height=body[0].clientHeight-50;
+                for(var i=0;i<fishnum;i++){
+                    var top=imgs[i].style.top;
+                    var left=imgs[i].style.left;
+                    var x=2*sin(direction[i]);
+                    var y=2*cos(direction[i]);
+                    top=String(parseFloat(String(top))+x)+'px';
+                    left=String(parseFloat(left)+y)+'px';
+                    if(!check(parseInt(top),parseInt(left))){
+                        /*if(left<0) direction[i]=360-direction[i];
+                        else if(top<0) direction[i]=540-diretion[i];
+                        else if(left>width) direction[i]=360-direction[i];
+                        else direction[i]=180-direction[i];*/
+                        direction[i]=Math.random()*360;
+                    }else{
+                        imgs[i].style.top=top;
+                        imgs[i].style.left=left;
+                    }
+                }
+            },16);
+        }
+        bgImg.onload=startwork();
+    </script>
+</html>
