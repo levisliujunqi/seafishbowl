@@ -9,6 +9,7 @@
         var direction=[]
         var t;
         var body=document.getElementsByTagName('body');
+        var fishpic='https://pic.imgdb.cn/item/64eba2ee661c6c8e54a87b48.png';
         function sleep(delay) {
                 var start = (new Date()).getTime();
                 while ((new Date()).getTime() - start < delay) {
@@ -28,7 +29,7 @@
             return Math.cos(x/180*Math.PI);
         }
         let bgImg = new Image()
-        bgImg.src = 'https://pic.imgdb.cn/item/64eba07d661c6c8e54a83980.png'
+        bgImg.src = fishpic;
         window.addEventListener('resize', function() {
             if(t!=null){
                 clearInterval(t);
@@ -43,7 +44,7 @@
             var height=body[0].clientHeight-50;
             for(var i=0;i<fishnum;i++){
                 var img=document.createElement('img');
-                img.src='https://pic.imgdb.cn/item/64eba07d661c6c8e54a83980.png';
+                img.src=fishpic;
                 img.id='fish'+i;
                 img.style.width='50px';
                 img.style.height='50px';
